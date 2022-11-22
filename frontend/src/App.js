@@ -1,4 +1,4 @@
-import Home from "./components/Home";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
@@ -19,10 +19,13 @@ const App = () => {
         <div className="col-md-2">
           <nav>
             <div className="list-group">
-              <a href="#!" className="list-group-item list-group-item-action">
+              <a href="/" className="list-group-item list-group-item-action">
                 Home
               </a>
-              <a href="#!" className="list-group-item list-group-item-action">
+              <a
+                href="/movies"
+                className="list-group-item list-group-item-action"
+              >
                 Movies
               </a>
               <a href="#!" className="list-group-item list-group-item-action">
@@ -41,7 +44,7 @@ const App = () => {
           </nav>
         </div>
         <div className="col-md-10">
-          <Home />
+          <Outlet />
         </div>
       </div>
     </div>
