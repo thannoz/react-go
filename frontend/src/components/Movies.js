@@ -1,29 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    let movieList = [
-      {
-        id: 1,
-        title: "Highlander",
-        release_date: "1986-03-07",
-        mpaa_rating: "R",
-        description: "Some long description",
-      },
-      {
-        id: 2,
-        title: "Raiders of the Lost Ark",
-        release_date: "1981-06-12",
-        mpaa_rating: "PG-13",
-        description: "Some long description",
-      },
-    ];
+  const fetchMoviesHandler = useCallback(async () => {
+    try {
+      let url = "http://localhost:8080/movies";
+      const res = await axios.get(url, {
+        headers: { Accept: "application/json" },
+        method: "GET",
+      });
+      if (res.statusText !== "OK") {
+        throw new Error("Something went wrong during fetching data");
+      }
 
-    setMovies(movieList);
+      const { data } = res;
+      console.log(data);
+      setMovies(data.movies);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   return (
     <div>

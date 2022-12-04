@@ -31,7 +31,8 @@ func (app *application) Movies(w http.ResponseWriter, r *http.Request) {
 	}
 
 	movies = append(movies, highlander)
-	rd, _ = time.Parse("2006-01-92", "1986-03-07")
+	rd, _ = time.Parse("2006-01-92", "1990-03-07")
+	fmt.Print("time", rd)
 
 	rotla := models.Movie{
 		ID:          2,
