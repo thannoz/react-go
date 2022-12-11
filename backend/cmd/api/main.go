@@ -1,6 +1,8 @@
 package main
 
 import (
+	"backend/internal/repository"
+	"backend/internal/repository/dbrepo"
 	"flag"
 	"fmt"
 	"log"
@@ -27,6 +29,7 @@ type application struct {
 	Domain   string
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	DB       repository.DatabaseRepo
 }
 
 func main() {
@@ -46,18 +49,19 @@ func main() {
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	// Connect to database
-	conn, err := openDB(cfg)
+	db, err := openDB(cfg)
 	if err != nil {
 		infoLog.Fatal(err)
 	}
-	defer conn.Close()
+	app := &application{
+		Domain:   "example.com",
+		infoLog:  infoLog,
+		errorLog: errorLog,
+		DB:       &dbrepo.PostgresDBRepo{DB: db},
+	}
+	defer db.Close()
 
 	infoLog.Printf("database connection pool established")
-
-	app := &application{
-		Domain:  "example.com",
-		infoLog: infoLog,
-	}
 
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
