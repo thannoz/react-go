@@ -1,4 +1,4 @@
-# react-go
+# REST AND GRAPHQL API in Go
 
 This is simple REST/GraphQL API using React on the Frontend
 and Go in the Backend.
