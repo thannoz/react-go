@@ -13,8 +13,6 @@ import Catalogue from "./components/Catalogue.tsx";
 import EditMovie from "./components/EditMovie.tsx";
 import Genres from "./components/Genres.tsx";
 
-// import './index.css'
-
 const router = createBrowserRouter([
   {
     path: "/",
