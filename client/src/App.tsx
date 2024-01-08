@@ -3,9 +3,13 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Alert } from "./components/Alert";
 
 const App = () => {
-  const [jwtToken, setJwtToken] = useState("");
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertClassName, setAlertClassName] = useState("d-none");
+  const [jwtToken, setJwtToken] = useState<string>("");
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [alertClassName, setAlertClassName] = useState<string>("d-none");
+
+  console.log("valueOf", jwtToken.valueOf());
+  console.log(jwtToken !== "");
+  console.log("" !== "");
 
   const navigate = useNavigate();
 
@@ -53,26 +57,28 @@ const App = () => {
               >
                 Genres
               </Link>
-              <>
-                <Link
-                  to="/admin/movie/0"
-                  className="list-group-item list-group-item-action"
-                >
-                  Add Movie
-                </Link>
-                <Link
-                  to="/catalogue"
-                  className="list-group-item list-group-item-action"
-                >
-                  Manage Catalogue
-                </Link>
-                <Link
-                  to="/graphql"
-                  className="list-group-item list-group-item-action"
-                >
-                  GraphQL
-                </Link>
-              </>
+              {jwtToken !== "" && (
+                <>
+                  <Link
+                    to="/admin/movie/0"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Add Movie
+                  </Link>
+                  <Link
+                    to="/catalogue"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Manage Catalogue
+                  </Link>
+                  <Link
+                    to="/graphql"
+                    className="list-group-item list-group-item-action"
+                  >
+                    GraphQL
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
