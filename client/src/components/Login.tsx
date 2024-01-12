@@ -12,17 +12,19 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [, setPassword] = useState<string>("");
 
+  // Get props passed by the Outlet component in App.tsx
   const { setJwtToken, setAlertMessage, setAlertClassName } =
     useOutletContext() as OutletContext;
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault(); // stop the form to submit
 
     if (email === "admin@example.com") {
-      setJwtToken("avc");
-      setAlertClassName("");
-      setAlertMessage("");
+      setJwtToken("abc");
+      setAlertClassName("alert-success");
+      setAlertMessage("Login was successful");
+      // TODO: Delete function setAlertMessage in useEffect to make the message disappear
       navigate("/");
     } else {
       setAlertClassName("alert-danger");

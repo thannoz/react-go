@@ -7,13 +7,9 @@ const App = () => {
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertClassName, setAlertClassName] = useState<string>("d-none");
 
-  console.log("valueOf", jwtToken.valueOf());
-  console.log(jwtToken !== "");
-  console.log("" !== "");
-
   const navigate = useNavigate();
 
-  const logOut = () => {
+  const logoutUser = () => {
     setJwtToken("");
     navigate("/login");
   };
@@ -30,7 +26,7 @@ const App = () => {
               <span className="badge bg-success">Login</span>
             </Link>
           ) : (
-            <a href="#!" onClick={logOut}>
+            <a href="#!" onClick={logoutUser}>
               <span className="badge bg-danger">Logout</span>
             </a>
           )}
@@ -85,6 +81,7 @@ const App = () => {
         <div className="col-md-10">
           <Alert className={alertClassName} message={alertMessage} />
           {/* Outlet render child elements */}
+          {/* With context we pass props to elments below the App component */}
           <Outlet
             context={{
               jwtToken,
